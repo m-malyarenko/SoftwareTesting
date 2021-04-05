@@ -1,7 +1,0 @@
-# Maven files
-target/
-
-# VSCode files
-.vscode/
-.code-workspace
-.settings/
