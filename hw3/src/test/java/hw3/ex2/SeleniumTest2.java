@@ -68,7 +68,6 @@ public class SeleniumTest2 {
     public void openedPageUrlTest() {
         String actualPageUrl = webDriver.getCurrentUrl();
 
-        /* 1. Open test site by URL */
         Assert.assertEquals(actualPageUrl, TEST_PAGE_URL);
     }
 
@@ -76,13 +75,11 @@ public class SeleniumTest2 {
     public void browserTitleTest() {
         String actualBrowserTitle = webDriver.getTitle().toUpperCase();
 
-        /* 2. Assert Browser title */
         Assert.assertEquals(actualBrowserTitle, BROWSER_TITLE);
     }
 
     @Test
     public void loginTest() {
-        /* 3. Perform login */
         webDriver.findElement(By.xpath("//img[@id='user-icon']")).click(); // Goto login menu
         webDriver.findElement(By.xpath("//input[@id='name']")).sendKeys("Roman");
         webDriver.findElement(By.xpath("//input[@id='password']")).sendKeys("Jdi1234");
@@ -91,10 +88,6 @@ public class SeleniumTest2 {
         WebElement username = webDriver.findElement(By.xpath("//span[@id='user-name']"));
         String actualUsername = username.getAttribute("innerHTML");
 
-        /* 
-         * 4. Assert User name in the left-top
-         * side of screen that user is loggined 
-         */
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(actualUsername.toUpperCase(), USER_NAME);
         softAssert.assertTrue(username.isDisplayed());
@@ -103,11 +96,6 @@ public class SeleniumTest2 {
 
     @Test
     public void dropdownMenuTest() {
-        /* 
-         * 5. Click on "Service" subcategory in the
-         * header and check that drop down contains options
-         */
-
         String menuPath = "//div[starts-with(@class, uui-header)]//li[@class='dropdown']";
         WebElement dropdownMenu = webDriver.findElement(By.xpath(menuPath));
         dropdownMenu.click();
@@ -132,11 +120,6 @@ public class SeleniumTest2 {
 
     @Test
     public void sideDropdownMenuTest() {
-        /* 
-         * 6. Click on "Service" subcategory in the
-         * header and check that drop down contains options
-         */
-
         String menuPath = "//ul[@class='sidebar-menu']/li[@class='menu-title']";
         WebElement dropdownMenu = webDriver.findElement(By.xpath(menuPath));
         dropdownMenu.click();
@@ -161,7 +144,6 @@ public class SeleniumTest2 {
 
     @Test(dependsOnMethods = {"loginTest"})
     public void difElementsPageTest() {
-        /* 7. Open through the header menu Service -> Different Elements Page */
         String menuPath = "//div[starts-with(@class, uui-header)]//li[@class='dropdown']";
         WebElement dropdownMenu = webDriver.findElement(By.xpath(menuPath));
         dropdownMenu.click();
@@ -170,7 +152,6 @@ public class SeleniumTest2 {
 
     @Test(dependsOnMethods = {"difElementsPageTest"})
     public void elementsTest() {
-        /* 8. Check interface on Different elements page, it contains all needed elements */
         String checkboxesPath = "//input[@type='checkbox']";
         List<WebElement> checkboxes = webDriver.findElements(By.xpath(checkboxesPath));
 
@@ -202,22 +183,13 @@ public class SeleniumTest2 {
 
     @Test(dependsOnMethods = {"difElementsPageTest"})
     public void sideSectionsTest() {
-        /* 9. Assert that there is Right Section */
         Assert.assertTrue(webDriver.findElement(By.xpath("//div[@name='navigation-sidebar']")).isDisplayed());
-        /* 10. Assert that there is Left Section */
         Assert.assertTrue(webDriver.findElement(By.xpath("//div[@name='log-sidebar']")).isDisplayed());
     }
 
     @Test(dependsOnMethods = {"difElementsPageTest"})
     public void checkboxTest() {
         webDriver.navigate().refresh();
-
-        /* 
-         * 11. Select checkboxes
-         * 
-         * 12. Assert that for each checkbox there is an
-         * individual log row and value is corresponded to the status of checkbox. 
-         */
 
         WebElement checkbox1 = webDriver.findElement(By.xpath("//div[@class='checkbox-row'][1]/label[1]/input"));
         checkbox1.click();
@@ -239,13 +211,6 @@ public class SeleniumTest2 {
         softAssert.assertTrue(checkbox1Status.contains("Water") && checkbox1Status.contains("true"));
         softAssert.assertTrue(checkbox2Log.isDisplayed());
         softAssert.assertTrue(checkbox2Status.contains("Wind") && checkbox2Status.contains("true"));
-        
-        /*
-         * 17. Unselect and assert checkboxes
-         * 
-         * 18. Assert that for each checkbox there is an
-         * individual log row and value is corresponded to the status of checkbox.
-         */
 
         checkbox1.click();
         checkbox2.click();
@@ -270,11 +235,6 @@ public class SeleniumTest2 {
     public void radiobuttonTest() {
         webDriver.navigate().refresh();
 
-        /* 13. Select radio 
-         *
-         * 14. Assert that for radiobutton there is a log row
-         * and value is corresponded to the status of radiobutton. 
-        */
         WebElement radiobutton1 = webDriver.findElement(By.xpath("//div[@class='checkbox-row'][2]/label[4]/input"));
         radiobutton1.click();
 
@@ -290,13 +250,6 @@ public class SeleniumTest2 {
     @Test(dependsOnMethods = {"difElementsPageTest"})
     public void selectbarTest() {
         webDriver.navigate().refresh();
-
-        /*
-         * 15. Select in dropdown
-         * 
-         * 16. Assert that for dropdown there is a log row
-         * and value is corresponded to the selected value. 
-         */
         
         WebElement selectbar = webDriver.findElement(By.xpath("//div[@class='colors']"));
         selectbar.click();

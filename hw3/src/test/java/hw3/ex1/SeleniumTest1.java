@@ -51,7 +51,6 @@ public class SeleniumTest1 {
 
     @AfterClass
     public void shutDown() {
-        /* 16. Close Browser */
         webDriver.quit();
     }
 
@@ -59,7 +58,6 @@ public class SeleniumTest1 {
     public void openedPageUrlTest() {
         String actualPageUrl = webDriver.getCurrentUrl();
 
-        /* 1. Open test site by URL */
         Assert.assertEquals(actualPageUrl, TEST_PAGE_URL);
     }
 
@@ -67,7 +65,6 @@ public class SeleniumTest1 {
     public void browserTitleTest() {
         String actualBrowserTitle = webDriver.getTitle();
 
-        /* 2. Assert Browser title */
         Assert.assertEquals(actualBrowserTitle, BROWSER_TITLE);
     }
 
@@ -82,22 +79,13 @@ public class SeleniumTest1 {
         WebElement username = webDriver.findElement(By.xpath("//span[@id='user-name']"));
         String actualUsername = username.getAttribute("innerHTML");
 
-        /* 
-         * 4. Assert User name in the left-top
-         * side of screen that user is loggined 
-         */
         Assert.assertEquals(actualUsername.toUpperCase(), USER_NAME);
 
-        /* 5. Assert Browser title */
         Assert.assertEquals(webDriver.getTitle(), BROWSER_TITLE);
     }
 
     @Test
     public void topMenuTitlesTest() {
-        /* 
-         * 6. Assert that there are 4 items on the header
-         * section are displayed and they have proper texts
-         */
         String path = "//div[starts-with(@class,'uui-header')]/nav/ul[1]/li/a";
         List<WebElement> titles = webDriver.findElements(By.xpath(path));
         Assert.assertTrue(titles.size() == 4);
@@ -118,7 +106,6 @@ public class SeleniumTest1 {
 
     @Test
     public void indexPageImagesTest() {
-        /* 7. Assert that there are 4 images on the Index Page and they are displayed */
         List<WebElement> icons = webDriver.findElements(By.xpath("//div[@class='benefit-icon']"));
         Assert.assertTrue(icons.size() == 4);
 
@@ -129,7 +116,6 @@ public class SeleniumTest1 {
 
     @Test
     public void imagesCaptionsTest() {
-        /* 8. Assert that there are 4 texts on the Index Page under icons and they have proper text */
         List<WebElement> captions = webDriver.findElements(By.xpath("//span[@class='benefit-txt']"));
         Assert.assertTrue(captions.size() == 4);
 
@@ -146,7 +132,6 @@ public class SeleniumTest1 {
 
     @Test
     public void mainHeadersTextTest() {
-        /* 9. Assert a text of the main headers */
         WebElement mainTitle = webDriver.findElement(By.xpath("//h3[@name='main-title']"));
         String actualMainTitle = mainTitle.getAttribute("innerHTML").toUpperCase();
 
@@ -164,28 +149,20 @@ public class SeleniumTest1 {
 
     @Test
     public void iframeTest() {
-        /* 10. Assert that there is the iframe in the center of page */
         WebElement centerIframe = webDriver.findElement(By.xpath("//iframe[@id='second_frame']"));
 
         Assert.assertTrue(centerIframe.isDisplayed());
 
-        /* 
-         * 11. Switch to the iframe and check that
-         * there is Epam logo in the left top conner of iframe
-         */
         webDriver.switchTo().frame(centerIframe);
         WebElement epamLogo = webDriver.findElement(By.xpath("//img[@id='epam-logo']"));
 
         Assert.assertTrue(epamLogo.isDisplayed());
 
-        /* 12. Switch to original window back */
         webDriver.switchTo().parentFrame();
     }
 
     @Test
     public void subHeaderTest() {
-        /* 13. Assert a text of the sub header */
-        /* 14. Assert that JDI GITHUB is a link and has a proper URL */
         WebElement subHeader = webDriver.findElement(By.xpath("//h3[@class='text-center']/a"));
         String actualSubHeaderText = subHeader.getAttribute("innerHTML").toUpperCase();
         String actualSubHeaderLink = subHeader.getAttribute("href");
@@ -196,7 +173,6 @@ public class SeleniumTest1 {
 
     @Test
     public void leftSectionTest() {
-        /* 15. Assert that there is Left Section */
         WebElement leftSidebar = webDriver.findElement(By.xpath("//div[@name='navigation-sidebar']"));
 
         Assert.assertTrue(leftSidebar.isDisplayed());
@@ -204,7 +180,6 @@ public class SeleniumTest1 {
 
     @Test
     public void footerTest() {
-        /* 16. Assert that there is Footer */
         WebElement footer = webDriver.findElement(By.xpath("//div[@class='footer-bg']"));
 
         Assert.assertTrue(footer.isDisplayed());
