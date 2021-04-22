@@ -52,7 +52,7 @@ public class MainHeader {
     public List<String> getHeaderTitles() {
         List<String> titles = new ArrayList<String>();
         for (WebElement titleElement : headerTitles) {
-            titles.add(titleElement.getText());
+            titles.add(titleElement.getText().toUpperCase());
         }
         return titles;
     }
@@ -61,7 +61,7 @@ public class MainHeader {
         List<String> titles = new ArrayList<String>();
         for (WebElement titleElement : serviceTitles) {
             WebElement titleLink = titleElement.findElement(By.tagName("a"));
-            titles.add(titleLink.getText());
+            titles.add(titleLink.getText().toUpperCase());
         }
         return titles;
     }
