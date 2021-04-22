@@ -28,6 +28,12 @@ public class HomePage {
     @FindBy(xpath = "//h3[@class='text-center']/a")
     private WebElement subHeader;
 
+    @FindBy(xpath = "//div[@name='navigation-sidebar']")
+    private WebElement leftSection;
+
+    @FindBy(xpath = "//div[@class='footer-bg']")
+    private WebElement footer;
+
     private WebDriver driver;
     
     public HomePage(WebDriver webDriver) {
@@ -99,5 +105,13 @@ public class HomePage {
 
     public String getSubHeaderLink() {
         return subHeader.getAttribute("href");
+    }
+
+    public boolean isLeftSectionDisplayed() {
+        return leftSection.isDisplayed();
+    }
+
+    public boolean isFooterDisplayed() {
+        return footer.isDisplayed();
     }
 }
