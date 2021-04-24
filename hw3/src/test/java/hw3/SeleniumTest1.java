@@ -1,4 +1,4 @@
-package hw3.ex1;
+package hw3;
 
 import java.util.List;
 

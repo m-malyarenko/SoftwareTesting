@@ -1,4 +1,4 @@
-package hw3.common;
+package hw3;
 
 import java.util.ArrayList;
 import java.util.List;

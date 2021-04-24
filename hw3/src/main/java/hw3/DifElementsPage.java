@@ -1,4 +1,4 @@
-package hw3.ex2;
+package hw3;
 
 import java.util.List;
 
@@ -72,6 +72,10 @@ public class DifElementsPage {
         return (defaultButton.isDisplayed() && button.isDisplayed());
     }
 
+    public boolean isSelectBoxDisplayed() {
+        return selectBox.isDisplayed();
+    }
+
     public boolean areSideSectionsDisplayed() {
         return (leftSection.isDisplayed() && rightSection.isDisplayed());
     }
@@ -97,6 +101,10 @@ public class DifElementsPage {
         return checkBoxes.get(index).isSelected();
     }
 
+    public boolean isRadioButtonSelected(int index) {
+        return radioButtons.get(index).isSelected();
+    }
+
     public boolean isLogDisplayed(int row) {
         List<WebElement> logElements = driver.findElements(By.xpath("//ul[starts-with(@class, 'panel-body-list')]/li"));
         return logElements.get(row).isDisplayed();
@@ -104,7 +112,7 @@ public class DifElementsPage {
 
     public String getLogText(int row) {
         List<WebElement> logElements = driver.findElements(By.xpath("//ul[starts-with(@class, 'panel-body-list')]/li"));
-        String logText = logElements.get(row).getText().toUpperCase();
+        String logText = logElements.get(row).getText();
         return logText;
     }
 }

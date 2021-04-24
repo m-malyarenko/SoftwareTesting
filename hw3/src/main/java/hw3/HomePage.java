@@ -1,4 +1,4 @@
-package hw3.ex1;
+package hw3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class HomePage {
     public List<String> getCaptionsText() {
         List<String> captions = new ArrayList<String>();
         for (WebElement captionElement : benefitImagesCaptions) {
-            captions.add(captionElement.getText());
+            captions.add(captionElement.getText().toUpperCase());
         }
         return captions;
     }
@@ -87,11 +87,17 @@ public class HomePage {
         return centerIframe.isDisplayed();
     }
 
-    public boolean isLogoDisplayed() {
+    public void switchToIframe() {
         driver.switchTo().frame(centerIframe);
+    }
+
+    public void switchToParentFrame() {
+        driver.switchTo().parentFrame();
+    }
+
+    public boolean isLogoDisplayed() {
         WebElement epamLogo = driver.findElement(By.xpath("//img[@id='epam-logo']"));
         boolean isDisplayed = epamLogo.isDisplayed();
-        driver.switchTo().parentFrame();
         return isDisplayed;
     }
 

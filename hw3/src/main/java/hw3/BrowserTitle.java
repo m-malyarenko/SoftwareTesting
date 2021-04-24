@@ -1,4 +1,4 @@
-package hw3.common;
+package hw3;
 
 import org.openqa.selenium.WebDriver;
 
