@@ -17,7 +17,7 @@ Maven profiles for TestNG test suites:
 
 ## HW3
 
-Maven profiles for TestNG test suites:
+Maven profiles for Cucumber test scenarios:
 - Ex1Suite - run Ex1 Test Scenario
 - Ex2Suite - run Ex2 Test Scenario
 - MainSuite - run all UI Test Scenarios
