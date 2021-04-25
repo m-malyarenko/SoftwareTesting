@@ -37,21 +37,21 @@ public class CucumberSteps {
 
         FileInputStream fin;
         try {
-            fin = new FileInputStream("commmon.properties");
+            fin = new FileInputStream("src/test/resources/hw3/common.properties");
             commonProperties.load(fin);
         } catch (IOException e) {
             System.err.println("Common properties file not found");
         }
 
         try {
-            fin = new FileInputStream("ex1.properties");
+            fin = new FileInputStream("src/test/resources/hw3/ex1.properties");
             ex1Properies.load(fin);
         } catch (IOException e) {
             System.err.println("Ex1 properties file not found");
         }
 
         try {
-            fin = new FileInputStream("ex2.properties");
+            fin = new FileInputStream("src/test/resources/hw3/ex2.properties");
             ex2Properties.load(fin);
         } catch (IOException e) {
             System.err.println("Ex2 properties file not found");
@@ -69,6 +69,7 @@ public class CucumberSteps {
     @Given("Web page is opened")
     public void openWebPage() {
         webDriver.navigate().to(commonProperties.getProperty("page.url"));
+        webDriver.manage().window().maximize();
     }
 
     @Given("User is logged in as {string} with password {string}")
@@ -77,12 +78,14 @@ public class CucumberSteps {
         login.performLogin(name, password);
     }
 
-    @Then("Browser title is {string}")
-    public void checkBrowserTitle(String title) {
+    @Then("Browser has a proper title")
+    public void checkBrowserTitle() {
         BrowserTitle titleElement = new BrowserTitle(webDriver);
         String browserTitle = titleElement.getBowserTitle();
+
+        String refTitle = commonProperties.getProperty("page.title");
         
-        Assert.assertEquals(browserTitle, title);
+        Assert.assertEquals(browserTitle, refTitle);
     }
 
     @Then("User name is {string}")
@@ -109,8 +112,8 @@ public class CucumberSteps {
         Assert.assertEquals(headerTitles, refTitles);
     }
 
-    @When("Focus is switched to the Home Page")
-    public void switchToMainPage() {
+    @When("Focus is on the Home Page")
+    public void initHomePage() {
         homePage = new HomePage(webDriver);
     }
 
@@ -192,6 +195,12 @@ public class CucumberSteps {
         softAssert.assertAll();
     }
 
+    @When("Header Service menu is opened")
+    public void openHeaderServiceMenu() {
+        MainHeader mainHeader = new MainHeader(webDriver);
+        mainHeader.openHeaderServiceMenu();
+    }
+
     @Then("Header Service menu has {int} options")
     public void checkHeaderServiceOptionsNum(int optionsNum) {
         MainHeader mainHeader = new MainHeader(webDriver);
@@ -206,6 +215,12 @@ public class CucumberSteps {
         List<String> refOptions = Arrays.asList(ex2Properties.getProperty("top.drop.options").split("\s*,\s*"));
 
         Assert.assertEquals(options, refOptions);
+    }
+
+    @When("Left side Service menu is opened")
+    public void openSideServiceMenu() {
+        LeftSection leftSection = new LeftSection(webDriver);
+        leftSection.openSideServiceMenu();
     }
 
     @Then("Left side Service menu has {int} options")
@@ -224,7 +239,7 @@ public class CucumberSteps {
         Assert.assertEquals(options, refOptions);
     }
 
-    @Given("Different Elements page is opened")
+    @When("Different Elements page is opened")
     public void openDifElementsPage() {
         difElementsPage = new DifElementsPage(webDriver);
     }
@@ -251,7 +266,7 @@ public class CucumberSteps {
         Assert.assertTrue(difElementsPage.areButtonsDisplayed());
     }
 
-    @Then("Different Elements page has left and right sides")
+    @Then("Different Elements page has left and right sections")
     public void checkDifElementsPageSideSections() {
         Assert.assertTrue(difElementsPage.areSideSectionsDisplayed());
     }
@@ -264,19 +279,15 @@ public class CucumberSteps {
             switch (buttonName) {
                 case "Water":
                     difElementsPage.clickCheckBox(0);
-                    Assert.assertTrue(difElementsPage.isCheckBoxSelected(0));
                     break;
                 case "Earth":
                     difElementsPage.clickCheckBox(1);
-                    Assert.assertTrue(difElementsPage.isCheckBoxSelected(1));
                     break;
                 case "Wind":
                     difElementsPage.clickCheckBox(2);
-                    Assert.assertTrue(difElementsPage.isCheckBoxSelected(2));
                     break;
                 case "Fire":
                     difElementsPage.clickCheckBox(3);
-                    Assert.assertTrue(difElementsPage.isCheckBoxSelected(3));
                     break;
                 default:
                     break;
@@ -285,15 +296,14 @@ public class CucumberSteps {
     }
 
     @Then("Check Boxes: {string} are selected and there is log info")
-    public void checkSelectedButtoms(String buttonNames) {
-        difElementsPage.refreshPage();
+    public void checkSelectedButtons(String buttonNames) {
         String[] buttonNamesList = buttonNames.split(",");
-        int buttonsNum = buttonNamesList.length;
+        int buttonsCount = buttonNamesList.length - 1;
 
         SoftAssert softAssert = new SoftAssert();
 
         for (String name : buttonNamesList) {
-            String log = difElementsPage.getLogText(buttonsNum);
+            String log = difElementsPage.getLogText(buttonsCount--);
             String buttonName = name.trim();
             switch (buttonName) {
                 case "Water":
@@ -325,12 +335,12 @@ public class CucumberSteps {
     @Then("Check Boxes: {string} are unselected and there is log info")
     public void checkUnselectedButtoms(String buttonNames) {
         String[] buttonNamesList = buttonNames.split(",");
-        int buttonsNum = buttonNamesList.length;
+        int buttonsCount = buttonNamesList.length - 1;
 
         SoftAssert softAssert = new SoftAssert();
 
         for (String name : buttonNamesList) {
-            String log = difElementsPage.getLogText(buttonsNum);
+            String log = difElementsPage.getLogText(buttonsCount--);
             String buttonName = name.trim();
             switch (buttonName) {
                 case "Water":

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite name="Ex2Testsuite">
+    <test name="UI Test">
+        <classes>
+            <class name="hw3.LaunchCucumber_ex2"></class>
+        </classes>
+    </test>
+</suite>

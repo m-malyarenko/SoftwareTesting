@@ -9,7 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class DifElementsPage {
-    private WebElement dropDownMenu;
 
     @FindBy(xpath = "//input[@type='checkbox']")
     private List<WebElement> checkBoxes;
@@ -35,11 +34,11 @@ public class DifElementsPage {
     private WebDriver driver;
     
     public DifElementsPage(WebDriver webDriver) {
+        WebElement serviceMenu =  webDriver.findElement(By.xpath("//a[@class='dropdown-toggle']"));
+        serviceMenu.click();
+        serviceMenu.findElement(By.xpath("//a[text()='Different elements']")).click();
+        PageFactory.initElements(webDriver, this);
         driver = webDriver;
-        dropDownMenu = driver.findElement(By.xpath("//div[starts-with(@class, uui-header)]//li[@class='dropdown']"));
-        dropDownMenu.click();
-        dropDownMenu.findElement(By.xpath("//a[text()='Different elements']")).click();
-        PageFactory.initElements(driver, this);
     }
 
     public boolean checkCheckboxesNum(int checkBoxesNum) {
@@ -106,12 +105,12 @@ public class DifElementsPage {
     }
 
     public boolean isLogDisplayed(int row) {
-        List<WebElement> logElements = driver.findElements(By.xpath("//ul[starts-with(@class, 'panel-body-list')]/li"));
+        List<WebElement> logElements = driver.findElements(By.xpath("//ul[@class='panel-body-list logs']/li"));
         return logElements.get(row).isDisplayed();
     }
 
     public String getLogText(int row) {
-        List<WebElement> logElements = driver.findElements(By.xpath("//ul[starts-with(@class, 'panel-body-list')]/li"));
+        List<WebElement> logElements = driver.findElements(By.xpath("//ul[@class='panel-body-list logs']/li"));
         String logText = logElements.get(row).getText();
         return logText;
     }

@@ -70,13 +70,13 @@ public class HomePage {
     public List<String> getCaptionsText() {
         List<String> captions = new ArrayList<String>();
         for (WebElement captionElement : benefitImagesCaptions) {
-            captions.add(captionElement.getText().toUpperCase());
+            captions.add(captionElement.getText().replaceAll("…", "").replaceAll("\n", " ").toUpperCase());
         }
         return captions;
     }
 
     public String getMainHeaderTitle() {
-        return mainHeaderTitle.getText().toUpperCase();
+        return mainHeaderTitle.getText().replaceAll("…", "").toUpperCase();
     }
 
     public String getMianHeaderText() {
