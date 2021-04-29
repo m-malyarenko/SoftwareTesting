@@ -5,3 +5,7 @@ target/
 .vscode/
 .code-workspace
 .settings/
+
+# Allure
+
+/allure-results/
